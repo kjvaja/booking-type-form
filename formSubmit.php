@@ -9,23 +9,21 @@ $date = $_POST['date'];
 $timeSlot = $_POST['time_slots'];
 $com = $_POST['comments'];
 
-if(is_array($days)==true)
+if(isset($days[1]))
 {
-    $days='all';
+  $days[0] = 'all';
 }
 
 $result = mysqli_query($conn,"select date from booking");
 $results = mysqli_fetch_assoc($result);
-print_r($days);
 foreach($results as $result){
   if($result==$date)
   {
     echo "Already booked on chosen date";
-    break;
   }
   else
   {
-    $sql = "insert into booking values('','$_POST[name]',$_POST[mobile_number],'$_POST[email]','$days','$_POST[date]','$_POST[time_slots]','$_POST[comments]')";
+    $sql = "insert into booking values('','$_POST[name]',$_POST[mobile_number],'$_POST[email]','$days[0]','$_POST[date]','$_POST[time_slots]','$_POST[comments]')";
     if ($conn->query($sql) === TRUE) 
     {
       echo "Record Inserted Successfully";
